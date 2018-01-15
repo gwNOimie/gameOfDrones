@@ -1,15 +1,18 @@
-//imports...
-var mongoose = require('mongoose');
 
-var gear = new mongoose.Schema({
-	cost: { type: Number },
-	level: { type: Number },
-	source: { type: String },
-	name: { type: String },
-	description: { type: String }
-});
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/godDatabase', { useMongoClient: true });
+mongoose.Promise = global.Promise;
 
-// Methods
-var getList = () => {
+const AttackModel = require('./attack');
+
+module.exports = {
+	gearSchema = new mongoose.Schema({
+		name : { type: String },
+		type : { type: String },
+		description : { type: String },
+		level : { type: Number },
+		pictureId : { type: String },
+		attacks : [AttackModel.attackSchema]
+	})
 
 }

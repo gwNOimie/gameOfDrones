@@ -5,10 +5,11 @@
       <th>Name</th>
       <th>Description</th>
       <th>Level</th>
+      <th>Cost</th>
+      <th>Speed</th>
       <th>Health</th>
       <th>Action points</th>
       <th>Picture</th>
-      <th>Cost</th>
       <th>Action</th>
     </tr>
   </thead>
@@ -25,16 +26,19 @@
         <input type="number" [(ngModel)]="newDrone.level">
       </td>
       <td>
-        <input type="number" [(ngModel)]="newDrone.life">
+        <input type="number" [(ngModel)]="newDrone.cost">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="newDrone.speed">
+      </td>
+      <td>
+        <input type="number" [(ngModel)]="newDrone.health">
       </td>
       <td>
         <input type="number" [(ngModel)]="newDrone.actionPoints">
       </td>
       <td>
-        <input [(ngModel)]="newDrone.source">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="newDrone.cost">
+        <input [(ngModel)]="newDrone.pictureId">
       </td>
       <td>
         <button (click)="addDrone()">Add</button>
@@ -45,10 +49,14 @@
       <td>{{drone.name}}</td>
       <td>{{drone.description}}</td>
       <td>{{drone.level}}</td>
-      <td>{{drone.life}}</td>
-      <td>{{drone.actionPoints}}</td>
-      <td>{{drone.source}}</td>
       <td>{{drone.cost}}</td>
+      <td>{{drone.speed}}</td>
+      <td>{{drone.health}}</td>
+      <td>{{drone.actionPoints}}</td>
+      <td>{{drone.pictureId}}</td>
+      <td>
+        <button (click)="openModalWeaponsDetail(drone._id)">+ Détail des armes</button>
+      </td>
       <td>
         <button (click)="openModalUpdate(drone)">Update</button>
         <button (click)="deleteDrone(drone._id)">Delete</button>
