@@ -10,6 +10,7 @@ let equippedGear = new mongoose.Schema({
 	shield: { type: String }, //gear_id
 	weapons: [String] //gear_id
 });
+
 let drones = new mongoose.Schema({
 	drone: { type: String }, //drone_id
 	isCurrent: { trype: Boolean },
