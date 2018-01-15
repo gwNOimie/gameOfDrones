@@ -13,8 +13,8 @@ let equippedGear = new mongoose.Schema({
 
 let drones = new mongoose.Schema({
     drone : { type : String }, //drone_id
-    isCurrent : { trype : boolean},
-    equippedGears : { type : equippedGear }
+    isCurrent : { trype : Boolean },
+    equippedGears : equippedGear
 });
 
 let users = new mongoose.Schema({

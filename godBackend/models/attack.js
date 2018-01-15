@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 const BonusModel = require('./bonus');
 
 module.exports = {
-	attackSchema = new mongoose.Schema({
+	attackSchema : new mongoose.Schema({
 		name : { type: String },
 		description : { type: String },
 		damages : { type: Number },

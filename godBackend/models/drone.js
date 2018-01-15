@@ -6,7 +6,7 @@ const GearModel = require('./gear');
 
 
 module.exports = {
-	droneSchema = new mongoose.Schema({
+	droneSchema : new mongoose.Schema({
 		name: { type: String },
 		description: { type: String },
 		level: { type: Number },
@@ -18,7 +18,7 @@ module.exports = {
 		weapons: [GearModel.gearSchema]
 	}),
 
-	DroneModel = mongoose.model('drone', droneSchema),
+	DroneModel : mongoose.model('drone', droneSchema),
 
 	getList: () => {
 		return new Promise((resolve, reject) => {
