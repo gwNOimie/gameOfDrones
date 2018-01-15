@@ -3,12 +3,11 @@ const router = express.Router();
 const usersController = require('../controllers/users');
 
 router.get('/', usersController.getList);
-router.get('/sortByGold', usersController.getFilteredList)
-router.get('/id/:id', usersController.getItemById);
-router.get('/pseudo/:pseudo', usersController.getItemByName);
-router.get('/email/:email', usersController.getItemByMail);
+router.get('/:id', usersController.getItemById);
+router.post('/search', usersController.search); //todo last
+
 router.post('/', usersController.addItem);
-router.post('/update/:id', usersController.updateItem);
+router.post('/:id', usersController.updateItem);
 router.delete('/:id', usersController.deleteItem);
 
 module.exports = router;

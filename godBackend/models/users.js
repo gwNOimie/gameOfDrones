@@ -19,35 +19,24 @@ module.exports = {
 	getList: () => {
 		return new Promise((resolve, reject) => {
 			console.log('getList');
-			resolve(User.find({}, {"pseudo":1, "email":1, "gold":1, "totalGold":1, }))
-		})
-	},
-	getFilteredList: () => {
-		return new Promise((resolve, reject) => {
-			console.log('getFilteredList');
-			resolve(User.aggregate([
-			{"$project": {"_id":1, "pseudo":1, "email":1, "gold":1} },
-			{"$group": {"_id": "$_id", "pseudo": {"$first": "$pseudo"}, "gold": {"$avg": "$gold"}} },
-			{"$sort": {"gold":-1} }
-			]))
+			User.find({}, function(err, result) {
+				if (err) {
+					reject(err);
+				};
+				resolve(result);
+			})	
 		})
 	},
 	getItemById: (id) => {
 		console.log('getItemById : ' + id);
-		return new Promise((resolve, reject) => {			
-			resolve(User.find({"_id": id}))
-		})
-	},
-	getItemByName: (name) => {
-		console.log('getItemByName : ' + name);
-		return new Promise((resolve, reject) => {			
-			resolve(User.find({"pseudo": name}))
-		})
-	},
-	getItemByMail: (email) => {
-		console.log('getItemByMail : ' + email);
-		return new Promise((resolve, reject) => {			
-			resolve(User.find({"email": email}))
+		return new Promise((resolve, reject) => {
+			User.find({"_id": id}, function(err, result) {
+				if (err) {
+					reject(err);
+				};
+				resolve(result);
+			})		
+			
 		})
 	},
 	addItem: (item) => {
@@ -56,14 +45,12 @@ module.exports = {
 			item.signUpDate = new Date();
 			item.gold = 0;
 			var user = new User(item);
-			
 			user.save(item, function(err, result) {
 				if (err) {
 					reject(err)
 				};
 				resolve(result)
 			})
-			
 		})
 	},
 	updateItem: (id, item) => {
@@ -73,8 +60,6 @@ module.exports = {
 					reject(err)
 				};
 				resolve(result)})
-
-	
 		})
 	},
 	deleteItem: (id) => {
