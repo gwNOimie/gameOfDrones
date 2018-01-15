@@ -8,16 +8,9 @@ var bodyParser = require('body-parser');
 var users = require('./routes/users');
 var drones = require('./routes/drones');
 var attack = require('./routes/attack');
-var elecB = require('./routes/electricityBonus');
-var engine = require('./routes/engine');
-var exploB = require('./routes/explosiveBonus');
-var fireB = require('./routes/fireBonus');
 var game = require('./routes/game');
 var gear = require('./routes/gear');
-var propeller = require('./routes/propeller');
-var shield = require('./routes/shield');
 var tile = require('./routes/tile');
-var weapon = require('./routes/weapon');
 
 var express = require('express');
 var app = express();
@@ -33,17 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/attack', attack);
 app.use('/drones', drones);
-app.use('/electricityBonus', elecB);
-app.use('/engine', engine);
-app.use('/explosiveBonus', exploB);
-app.use('/fireBonus', fireB);
 app.use('/game', game);
 app.use('/gear', gear);
-app.use('/propeller', propeller);
-app.use('/shield', shield);
 app.use('/tile', tile);
 app.use('/users', users);
-app.use('/weapon', weapon);
 
 
 // catch 404 and forward to error handler

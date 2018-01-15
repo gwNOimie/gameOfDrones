@@ -4,21 +4,22 @@ mongoose.Promise = global.Promise;
 
 const GearModel = require('./gear');
 
+const DroneSchema = new mongoose.Schema({
+	name: { type: String },
+	description: { type: String },
+	level: { type: Number },
+	cost: { type: Number },
+	speed: { type: Number },
+	health: { type: Number },
+	actionPoints: { type: Number },
+	pictureId: { type: String },
+	weapons: [GearModel.gearSchema]
+});
+
+const DroneModel = mongoose.model('drone', DroneSchema);
 
 module.exports = {
-	droneSchema = new mongoose.Schema({
-		name: { type: String },
-		description: { type: String },
-		level: { type: Number },
-		cost: { type: Number },
-		speed: { type: Number },
-		health: { type: Number },
-		actionPoints: { type: Number },
-		pictureId: { type: String },
-		weapons: [GearModel.gearSchema]
-	}),
-
-	DroneModel = mongoose.model('drone', droneSchema),
+	droneSchema: () => DroneSchema,
 
 	getList: () => {
 		return new Promise((resolve, reject) => {

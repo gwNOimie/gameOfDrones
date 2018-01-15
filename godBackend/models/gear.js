@@ -6,7 +6,7 @@ mongoose.Promise = global.Promise;
 const AttackModel = require('./attack');
 
 module.exports = {
-	gearSchema = new mongoose.Schema({
+	gearSchema: new mongoose.Schema({
 		name : { type: String },
 		type : { type: String },
 		description : { type: String },
