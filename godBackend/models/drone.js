@@ -2,20 +2,24 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/godDatabase', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
-const droneSchema = new mongoose.Schema({
-	name: { type: String },
-	description: { type: String },
-	level: { type: Number },
-	cost: { type: Number },
-	speed: { type: Number },
-	health: { type: Number },
-	actionPoints: { type: Number },
-	pictureId: { type: String },
-});
+const GearModel = require('./gear');
 
-const DroneModel = mongoose.model('drone', droneSchema);
 
 module.exports = {
+	droneSchema = new mongoose.Schema({
+		name: { type: String },
+		description: { type: String },
+		level: { type: Number },
+		cost: { type: Number },
+		speed: { type: Number },
+		health: { type: Number },
+		actionPoints: { type: Number },
+		pictureId: { type: String },
+		weapons: [GearModel.gearSchema]
+	}),
+
+	DroneModel = mongoose.model('drone', droneSchema),
+
 	getList: () => {
 		return new Promise((resolve, reject) => {
 			DroneModel.find((error, results) => {
