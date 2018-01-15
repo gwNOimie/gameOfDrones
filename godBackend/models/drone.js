@@ -4,12 +4,13 @@ mongoose.Promise = global.Promise;
 
 const droneSchema = new mongoose.Schema({
 	name: { type: String },
-	life: { type: Number },
-	actionPoints: { type: Number },
-	cost: { type: Number },
-	source: { type: String },
 	description: { type: String },
-	level: { type: Number }
+	level: { type: Number },
+	cost: { type: Number },
+	speed: { type: Number },
+	health: { type: Number },
+	actionPoints: { type: Number },
+	pictureId: { type: String },
 });
 
 const DroneModel = mongoose.model('drone', droneSchema);

@@ -18,6 +18,8 @@ export class DronesListComponent implements OnInit {
     this.dronesList = [];
     this.db.getList('drones').then((data) => {
       this.dronesList = data;
+    }).catch((error) => {
+      console.log(error);
     });
   }
 

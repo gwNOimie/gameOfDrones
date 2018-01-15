@@ -1,35 +1,59 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="btn-group">
-    <button type="button" class="btn btn-outline-success" routerLink='/drones'>Drones</button>
-    <button type="button" class="btn btn-outline-success" routerLink='/players'>Players</button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/">GameOfDrones - Admin</a>
+  <button class="navbar-toggler" type="button" (click)="isVisible = !isVisible" aria-controls="navbarSupportedContent" [attr.aria-expanded]="!isVisible"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary" routerLink='/gears'>Gears</button>
-    <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-      <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
-      <div class="dropdown-menu" ngbDropdownMenu>
-        <button class="dropdown-item" routerLink='/engines'>Engines</button>
-        <button class="dropdown-item" routerLink='/propellers'>Propellers</button>
-        <button class="dropdown-item" routerLink='/shields'>Shields</button>
-        <button class="dropdown-item" routerLink='/weapons'>Weapons</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary" routerLink='/attacks'>Attack</button>
-      <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-        <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
-        <div class="dropdown-menu" ngbDropdownMenu>
-          <button class="dropdown-item" routerLink='/fire'>Fire</button>
-          <button class="dropdown-item" routerLink='/electricity'>Electricity</button>
-          <button class="dropdown-item" routerLink='/explosive'>Explosive</button>
+  <div class="navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="!isVisible">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink='/drones'>Drones</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink='/players'>Players</a>
+      </li>
+      <li class="nav-item d-flex flex-row">
+        <a class="nav-link" routerLink='/gears'>Gears</a>
+        <div ngbDropdown role="group">
+          <a class="nav-link dropdown-toggle-split" ngbDropdownToggle></a>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <a class="dropdown-item" routerLink='/engines'>Engines</a>
+            <a class="dropdown-item" routerLink='/propellers'>Propellers</a>
+            <a class="dropdown-item" routerLink='/shields'>Shields</a>
+            <a class="dropdown-item" routerLink='/weapons'>Weapons</a>
+          </div>
         </div>
-      </div>
-    </div>
+      </li>
+      <li class="nav-item d-flex flex-row">
+        <a class="nav-link" routerLink='/attacks'>Attack</a>
+        <div ngbDropdown role="group">
+          <a class="nav-link dropdown-toggle-split" ngbDropdownToggle></a>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <a class="dropdown-item" routerLink='/fire'>Fire</a>
+            <a class="dropdown-item" routerLink='/electricity'>Electricity</a>
+            <a class="dropdown-item" routerLink='/explosive'>Explosive</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
   </div>
 </nav>
-
-
-
-<router-outlet></router-outlet>
+<div class="container-fluid mt-3">
+  <router-outlet></router-outlet>
+</div>
