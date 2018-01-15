@@ -5,55 +5,80 @@ mongoose.Promise = global.Promise;
 
 // model
 let equippedGear = new mongoose.Schema({
-    propeller : { type : String }, //gear_id
-    engine : { type : String }, //gear_id
-    shield : { type : String }, //gear_id
-    weapons : [String] //gear_id
+	propeller: { type: String }, //gear_id
+	engine: { type: String }, //gear_id
+	shield: { type: String }, //gear_id
+	weaponLeft: { type: String }, //gear_id
+	weaponRight: { type: String } //gear_id
 });
 
-let drones = new mongoose.Schema({
-    drone : { type : String }, //drone_id
-    isCurrent : { trype : Boolean },
-    equippedGears : equippedGear
+let userDrone = new mongoose.Schema({
+
+	drone: { type: String }, //drone_id
+	isCurrent: { trype: Boolean },
+	equippedGears: equippedGear
 });
 
 let users = new mongoose.Schema({
-	name : { type : String },
-	password : { type : String },
-    email: { type: String },
-	avatarId : {type: String },
-    signUpDate: { type: Date, default: Date.now },
-    gold: { type: Number },
-    totalGold: { type: Number },
-	boughtGears : [String], //gear_id
-	drones : [drones]
+	name: { type: String },
+	password: { type: String },
+	email: { type: String },
+	signUpDate: { type: Date, default: Date.now },
+	gold: { type: Number },
+	totalGold: { type: Number },
+	boughtGears: [String], //gear_id
+	drones: [userDrone]
 });
 
 
-var User = mongoose.model('users',users);
+var User = mongoose.model('users', users);
 
 module.exports = {
+	changeGear: (user_id, body) => {
+		return new Promise((resolve, reject) => {
+			console.log('changeGear')
+			let tempUser;
+			let gear_id = body.gear_id;
+            let type = body.type;
+			User.find({"_id": user_id}, (err, result) => {
+				if (err) {
+					reject(err)
+				}
+				tempUser = result;
+                if (tempUser.boughtGears.indexOf(gear_id) >= 0) {
+
+					tempUser.drones.forEach((drone, index) => {
+						if (drone.isCurrent){
+							let command = "drones."+index+".equippedGears."+type;
+							User.findByIdAndUpdate({user_id}, {$set :{ command: gear_id}} );
+							//tempUser.drone[index].findByIdAndUpdate(user_id, {$set: {type: gear_id}});
+						}
+					})
+                }
+			});
+		})
+	},
 	getList: () => {
 		return new Promise((resolve, reject) => {
 			console.log('getList');
-			User.find({}, function(err, result) {
+			User.find({}, function (err, result) {
 				if (err) {
 					reject(err);
 				};
 				resolve(result);
-			})	
+			})
 		})
 	},
 	getItemById: (id) => {
 		console.log('getItemById : ' + id);
 		return new Promise((resolve, reject) => {
-			User.find({"_id": id}, function(err, result) {
+			User.find({ "_id": id }, function (err, result) {
 				if (err) {
 					reject(err);
 				};
 				resolve(result);
-			})		
-			
+			})
+
 		})
 	},
 	addItem: (item) => {
@@ -62,7 +87,7 @@ module.exports = {
 			item.signUpDate = new Date();
 			item.gold = 0;
 			var user = new User(item);
-			user.save(item, function(err, result) {
+			user.save(item, function (err, result) {
 				if (err) {
 					reject(err)
 				};
@@ -72,16 +97,17 @@ module.exports = {
 	},
 	updateItem: (id, item) => {
 		return new Promise((resolve, reject) => {
-			User.findByIdAndUpdate(id, item, function(err, result) {
+			User.findByIdAndUpdate(id, item, function (err, result) {
 				if (err) {
 					reject(err)
 				};
-				resolve(result)})
+				resolve(result)
+			})
 		})
 	},
 	deleteItem: (id) => {
 		return new Promise((resolve, reject) => {
-			resolve(User.find({"email": id}).remove().exec())
+			resolve(User.find({ "email": id }).remove().exec())
 		})
 	}
 }

@@ -41,6 +41,14 @@ module.exports = {
       res.status(500).send(error);
     })
   },
+  changeGear: (req, res, next) => {
+    userModel.changeGear(req.params.id, req.body).then((result) => {
+      res.send(result)
+    }).catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    })
+  },
   updateItem: (req, res, next) => {
     userModel.updateItem(req.params.id, req.body).then((result) => {
       res.send(result)
