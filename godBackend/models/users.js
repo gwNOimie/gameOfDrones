@@ -10,6 +10,7 @@ let equippedGear = new mongoose.Schema({
     shield : { type : String }, //gear_id
     weapons : [String] //gear_id
 });
+
 let drones = new mongoose.Schema({
     drone : { type : String }, //drone_id
     isCurrent : { trype : boolean},
@@ -20,6 +21,7 @@ let users = new mongoose.Schema({
 	name : { type : String },
 	password : { type : String },
     email: { type: String },
+	avatarId : {type: String },
     signUpDate: { type: Date, default: Date.now },
     gold: { type: Number },
     totalGold: { type: Number },
