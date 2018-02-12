@@ -8,13 +8,17 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  login(login, password, source) {
+  login(login, password, source = null) {
     // TODO: connect via backend
     this.currentUser = {
       name: 'Admin',
       isAdmin: true
     };
-    this.router.navigate([`/${source}`]);
+    let dest = '/';
+    if (source) {
+      dest += source;
+    }
+    this.router.navigate([dest]);
   }
 
   logout() {

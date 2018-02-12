@@ -18,7 +18,6 @@ export class LoginComponent {
     private route: ActivatedRoute
   ) {
     this.route.params.subscribe(params => {
-      this.source = '/';
       if (params['source']) {
         this.source = params['source'];
       }
@@ -26,7 +25,7 @@ export class LoginComponent {
   }
 
   logIn() {
-    this.auth.login(this.login, this.password, this.source = null);
+    this.auth.login(this.login, this.password, this.source);
   }
 
   isValid() {
