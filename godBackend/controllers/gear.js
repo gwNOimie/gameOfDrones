@@ -9,24 +9,8 @@ module.exports = {
       res.status(500).send(error);
     })
   },
-  getFilteredList: (req, res, next) => {
-    userModel.getFilteredList().then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  getItemById: (req, res, next) => {
+  getItem: (req, res, next) => {
     userModel.getItemById(req.params.id).then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  getItemByName: (req, res, next) => {
-    userModel.getItemByName(req.params.pseudo).then((result) => {
       res.send(result)
     }).catch((error) => {
       console.log(error);
