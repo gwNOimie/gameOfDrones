@@ -6,26 +6,27 @@ mongoose.Promise = global.Promise;
 const AttackModel = require('./attack');
 
 const GearSchema = new mongoose.Schema({
-    name : { type: String },
-    type : { type: String },
-    description : { type: String },
-    level : { type: Number },
-    pictureId : { type: String },
-    attacks : {
-    		type:[ AttackModel.attackSchema()],
-			validate: [arrayLimit, '{PATH} exceeds the limit of 2']
-    }
+	name : { type: String },
+	type : { type: String },
+	description : { type: String },
+	cost: { type: Number },
+	level : { type: Number },
+	pictureId : { type: String },
+	attacks : {
+		type: [AttackModel.attackSchema()],
+		validate: [arrayLimit, '{PATH} exceeds the limit of 2']
+	}
 });
 
 function arrayLimit(val) {
-    return val.length <= 2;
+	return val.length <= 2;
 }
 
 const GearModel = mongoose.model('gear', GearSchema);
 
 module.exports = {
-    gearSchema: () => GearSchema,
-    getList: () => {
+	gearSchema: () => GearSchema,
+	getList: () => {
 		return new Promise((resolve, reject) => {
 			console.log('getList');
 			resolve(Gear.find({}))
@@ -61,7 +62,7 @@ module.exports = {
 	},
 	updateItem: (id, item) => {
 		return new Promise((resolve, reject) => {
-            GearModel.findByIdAndUpdate(id, item, function (err, result) {
+			GearModel.findByIdAndUpdate(id, item, function (err, result) {
 				if (err) {
 					reject(err)
 				};
