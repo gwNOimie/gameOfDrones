@@ -1,11 +1,19 @@
-import { DatabaseService } from './services/database/database.service';
-import { BrowserModule } from '@angular/platform-browser';
+import { AuthGuard } from './guards/auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
+
+import { RoutingModule } from './modules/routing/routing.module';
+
+import { AuthService } from './services/auth/auth.service';
+import { DatabaseService } from './services/database/database.service';
+
 import { HomeComponent } from './pages/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { DronesListComponent } from './pages/drones-list/drones-list.component';
 import { EngineListComponent } from './pages/engine-list/engine-list.component';
@@ -18,12 +26,8 @@ import { FireBonusListComponent } from './pages/fire-bonus-list/fire-bonus-list.
 import { ElectricityBonusListComponent } from './pages/electricity-bonus-list/electricity-bonus-list.component';
 import { ExplosiveBonusListComponent } from './pages/explosive-bonus-list/explosive-bonus-list.component';
 import { PlayerListComponent } from './pages/player-list/player-list.component';
-import { RoutingModule } from './modules/routing/routing.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+
 import { DroneUpdateComponent } from './modals/drone-update/drone-update.component';
-
-
 
 @NgModule({
   declarations: [
@@ -54,7 +58,13 @@ import { DroneUpdateComponent } from './modals/drone-update/drone-update.compone
     NgbModule.forRoot(),
     FormsModule
   ],
-  providers: [DatabaseService],
-  bootstrap: [AppComponent]
+  providers: [
+    DatabaseService,
+    AuthService,
+    AuthGuard
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
