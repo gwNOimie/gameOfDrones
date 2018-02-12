@@ -1,6 +1,6 @@
 var crypto = require('crypto');
 
-const userModel = require('../models/users');
+const userModel = require('../models/user');
 
 module.exports = {
   getList: (req, res, next) => {
@@ -30,9 +30,6 @@ module.exports = {
     crypted += cipher.final('hex');
     item.password = crypted;
     console.log(item.password);
-    //Utils.prototype.hashPW = function(item.password) {
-    //  return crypto.createHash('sha256').update(item.password).digest('base64').toString();
-    //}
 
     userModel.addItem(item).then((result) => {
       res.send(result)
@@ -63,6 +60,14 @@ module.exports = {
     }).catch((error) => {
       console.log(error);
       res.status(500).send(error);
+    })
+  },
+
+  getSong: (req, res, next) => {
+    userModel.getSong().then((result) => {
+      res.send(result)
+    }).catch((err) =>{
+      res.status(500).send(err)
     })
   }
 }

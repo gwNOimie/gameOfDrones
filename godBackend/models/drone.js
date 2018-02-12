@@ -1,4 +1,7 @@
-const droneModel = require('../models/drone');
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/godDatabase', { useMongoClient: true });
+mongoose.Promise = global.Promise;
+const GearModel = require('./gear')
 
 const DroneSchema = new mongoose.Schema({
     name: { type: String },
@@ -21,12 +24,16 @@ function arrayLimit(val) {
 
 module.exports = {
     droneSchema: () => DroneSchema,
-    getList: (req, res, next) => {
-        DroneModel.getList().then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
+
+    getList: () => {
+        return new Promise((resolve, reject) => {
+            console.log('getList');
+            DroneModel.find({}, function (err, result) {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            })
         })
     },
     getItem: (req, res, next) => {

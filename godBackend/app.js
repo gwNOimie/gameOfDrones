@@ -5,14 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var users = require('./routes/users');
-var drones = require('./routes/drones');
+var users = require('./routes/user');
+var drones = require('./routes/drone');
 var attack = require('./routes/attack');
 var game = require('./routes/game');
 var gear = require('./routes/gear');
 var tile = require('./routes/tile');
 
-var express = require('express');
 var app = express();
 
 var db = require('./db');
@@ -47,7 +46,7 @@ app.use(function (err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.send('error');
+	res.send(err);
 });
 
 module.exports = app;
