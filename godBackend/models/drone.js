@@ -22,44 +22,44 @@ function arrayLimit(val) {
 
 module.exports = {
 	droneSchema: () => DroneSchema,
-	getList: (req, res, next) => {
-		DroneModel.getList().then((result) => {
-			res.send(result)
-		}).catch((error) => {
-			console.log(error);
-			res.status(500).send(error);
+	getList: () => {
+		return new Promise((resolve, reject) => {
+			console.log('getList');
+			resolve(DroneModel.find({}))
 		})
 	},
-	getItem: (req, res, next) => {
-		DroneModel.getItem(req.params.id).then((result) => {
-			res.send(result)
-		}).catch((error) => {
-			console.log(error);
-			res.status(500).send(error);
+	getItem: (id) => {
+		console.log('getItemById : ' + id);
+		return new Promise((resolve, reject) => {
+			resolve(DroneModel.find({ "_id": id }))
 		})
 	},
-	addItem: (req, res, next) => {
-		DroneModel.addItem(req.body).then((result) => {
-			res.send(result)
-		}).catch((error) => {
-			console.log(error);
-			res.status(500).send(error);
+	addItem: (item) => {
+		return new Promise((resolve, reject) => {
+			console.log('addItem');
+			const drone = new DroneModel(item);
+			drone.save((err, result) => {
+				if (err) {
+					reject(err)
+				};
+				resolve(result)
+			})
+
 		})
 	},
-	updateItem: (req, res, next) => {
-		DroneModel.updateItem(req.params.id, req.body).then((result) => {
-			res.send(result)
-		}).catch((error) => {
-			console.log(error);
-			res.status(500).send(error);
+	updateItem: (id, item) => {
+		return new Promise((resolve, reject) => {
+			DroneModel.findByIdAndUpdate(id, item, (err, result) => {
+				if (err) {
+					reject(err)
+				};
+				resolve(result)
+			})
 		})
 	},
-	deleteItem: (req, res, next) => {
-		DroneModel.deleteItem(req.params.id).then((result) => {
-			res.send(result)
-		}).catch((error) => {
-			console.log(error);
-			res.status(500).send(error);
+	deleteItem: (id) => {
+		return new Promise((resolve, reject) => {
+			resolve(DroneModel.find({ "_id": id }).remove().exec())
 		})
 	}
 }
