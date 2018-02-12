@@ -1,3 +1,4 @@
+import { DroneModel } from './../../models/drone.model';
 import { DroneUpdateComponent } from './../../modals/drone-update/drone-update.component';
 import { DatabaseService } from './../../services/database/database.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,98 +11,99 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DronesListComponent implements OnInit {
   dronesList: any;
-  newDrone = {
-    name: '',
-    description: '',
-    level: null,
-    cost: null,
-    speed: null,
-    health: null,
-    actionPoints: null,
-    pictureId: '',
-    weaponLeft: {
-      type: '',
-      name: '',
-      description: '',
-      level: null,
-      pictureId: '',
-      attacks: [
-        {
-          name: '',
-          description: '',
-          damages: null,
-          ammo: null,
-          cooldown: null,
-          accuracy: null,
-          pictureId: '',
-          bonus: {
-            type: '',
-            damages: null,
-            nbTurns: null,
-            actionPointsReduction: null,
-            nbTiles: null
-          }
-        },
-        {
-          name: '',
-          description: '',
-          damages: null,
-          ammo: null,
-          cooldown: null,
-          accuracy: null,
-          pictureId: '',
-          bonus: {
-            type: '',
-            damages: null,
-            nbTurns: null,
-            actionPointsReduction: null,
-            nbTiles: null
-          }
-        }
-      ]
-    },
-    weaponRight: {
-      type: '',
-      name: '',
-      description: '',
-      level: null,
-      pictureId: '',
-      attacks: [
-        {
-          name: '',
-          description: '',
-          damages: null,
-          ammo: null,
-          cooldown: null,
-          accuracy: null,
-          pictureId: '',
-          bonus: {
-            type: '',
-            damages: null,
-            nbTurns: null,
-            actionPointsReduction: null,
-            nbTiles: null
-          }
-        },
-        {
-          name: '',
-          description: '',
-          damages: null,
-          ammo: null,
-          cooldown: null,
-          accuracy: null,
-          pictureId: '',
-          bonus: {
-            type: '',
-            damages: null,
-            nbTurns: null,
-            actionPointsReduction: null,
-            nbTiles: null
-          }
-        }
-      ]
-    }
-  };
+  newDrone = new DroneModel();
+  // newDrone = {
+  //   name: '',
+  //   description: '',
+  //   level: null,
+  //   cost: null,
+  //   speed: null,
+  //   health: null,
+  //   actionPoints: null,
+  //   pictureId: '',
+  //   weaponLeft: {
+  //     type: '',
+  //     name: '',
+  //     description: '',
+  //     level: null,
+  //     pictureId: '',
+  //     attacks: [
+  //       {
+  //         name: '',
+  //         description: '',
+  //         damages: null,
+  //         ammo: null,
+  //         cooldown: null,
+  //         accuracy: null,
+  //         pictureId: '',
+  //         bonus: {
+  //           type: '',
+  //           damages: null,
+  //           nbTurns: null,
+  //           actionPointsReduction: null,
+  //           nbTiles: null
+  //         }
+  //       },
+  //       {
+  //         name: '',
+  //         description: '',
+  //         damages: null,
+  //         ammo: null,
+  //         cooldown: null,
+  //         accuracy: null,
+  //         pictureId: '',
+  //         bonus: {
+  //           type: '',
+  //           damages: null,
+  //           nbTurns: null,
+  //           actionPointsReduction: null,
+  //           nbTiles: null
+  //         }
+  //       }
+  //     ]
+  //   },
+  //   weaponRight: {
+  //     type: '',
+  //     name: '',
+  //     description: '',
+  //     level: null,
+  //     pictureId: '',
+  //     attacks: [
+  //       {
+  //         name: '',
+  //         description: '',
+  //         damages: null,
+  //         ammo: null,
+  //         cooldown: null,
+  //         accuracy: null,
+  //         pictureId: '',
+  //         bonus: {
+  //           type: '',
+  //           damages: null,
+  //           nbTurns: null,
+  //           actionPointsReduction: null,
+  //           nbTiles: null
+  //         }
+  //       },
+  //       {
+  //         name: '',
+  //         description: '',
+  //         damages: null,
+  //         ammo: null,
+  //         cooldown: null,
+  //         accuracy: null,
+  //         pictureId: '',
+  //         bonus: {
+  //           type: '',
+  //           damages: null,
+  //           nbTurns: null,
+  //           actionPointsReduction: null,
+  //           nbTiles: null
+  //         }
+  //       }
+  //     ]
+  //   }
+  // };
 
   constructor(private db: DatabaseService, private modalService: NgbModal) { }
 

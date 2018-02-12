@@ -18,21 +18,10 @@
         <div ngbDropdown role="group">
           <a class="nav-link dropdown-toggle-split" ngbDropdownToggle></a>
           <div class="dropdown-menu" ngbDropdownMenu>
-            <a class="dropdown-item" routerLink='/engines'>Engines</a>
-            <a class="dropdown-item" routerLink='/propellers'>Propellers</a>
-            <a class="dropdown-item" routerLink='/shields'>Shields</a>
-            <a class="dropdown-item" routerLink='/weapons'>Weapons</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item d-flex flex-row">
-        <a class="nav-link" routerLink='/attacks'>Attack</a>
-        <div ngbDropdown role="group">
-          <a class="nav-link dropdown-toggle-split" ngbDropdownToggle></a>
-          <div class="dropdown-menu" ngbDropdownMenu>
-            <a class="dropdown-item" routerLink='/electricity'>Electricity</a>
-            <a class="dropdown-item" routerLink='/explosive'>Explosive</a>
-            <a class="dropdown-item" routerLink='/fire'>Fire</a>
+            <a class="dropdown-item" [routerLink]="['/engines', 'engine']">Engines</a>
+            <a class="dropdown-item" [routerLink]="['/propellers', 'propeller']">Propellers</a>
+            <a class="dropdown-item" [routerLink]="['/shields', 'shield']">Shields</a>
+            <a class="dropdown-item" [routerLink]="['/weapons', 'weapon']">Weapons</a>
           </div>
         </div>
       </li>
