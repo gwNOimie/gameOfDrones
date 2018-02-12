@@ -10,7 +10,98 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DronesListComponent implements OnInit {
   dronesList: any;
-  newDrone = {};
+  newDrone = {
+    name: '',
+    description: '',
+    level: null,
+    cost: null,
+    speed: null,
+    health: null,
+    actionPoints: null,
+    pictureId: '',
+    weaponLeft: {
+      type: '',
+      name: '',
+      description: '',
+      level: null,
+      pictureId: '',
+      attacks: [
+        {
+          name: '',
+          description: '',
+          damages: null,
+          ammo: null,
+          cooldown: null,
+          accuracy: null,
+          pictureId: '',
+          bonus: {
+            type: '',
+            damages: null,
+            nbTurns: null,
+            actionPointsReduction: null,
+            nbTiles: null
+          }
+        },
+        {
+          name: '',
+          description: '',
+          damages: null,
+          ammo: null,
+          cooldown: null,
+          accuracy: null,
+          pictureId: '',
+          bonus: {
+            type: '',
+            damages: null,
+            nbTurns: null,
+            actionPointsReduction: null,
+            nbTiles: null
+          }
+        }
+      ]
+    },
+    weaponRight: {
+      type: '',
+      name: '',
+      description: '',
+      level: null,
+      pictureId: '',
+      attacks: [
+        {
+          name: '',
+          description: '',
+          damages: null,
+          ammo: null,
+          cooldown: null,
+          accuracy: null,
+          pictureId: '',
+          bonus: {
+            type: '',
+            damages: null,
+            nbTurns: null,
+            actionPointsReduction: null,
+            nbTiles: null
+          }
+        },
+        {
+          name: '',
+          description: '',
+          damages: null,
+          ammo: null,
+          cooldown: null,
+          accuracy: null,
+          pictureId: '',
+          bonus: {
+            type: '',
+            damages: null,
+            nbTurns: null,
+            actionPointsReduction: null,
+            nbTiles: null
+          }
+        }
+      ]
+    }
+  };
 
   constructor(private db: DatabaseService, private modalService: NgbModal) { }
 
@@ -26,11 +117,10 @@ export class DronesListComponent implements OnInit {
   addDrone() {
     this.db.add('drones', this.newDrone).then((data) => {
       console.log('Drone : ', data);
-      this.db.getList('drones').then((otherData) => {
-        console.log('drones.getlist : ', otherData);
-        this.dronesList = otherData;
-      });
-      this.newDrone = {};
+      return this.db.getList('drones');
+    }).then((otherData) => {
+      console.log('drones.getlist : ', otherData);
+      this.dronesList = otherData;
     }).catch((error) => {
       console.log('Error in add Drone : ', error);
     });
@@ -38,23 +128,25 @@ export class DronesListComponent implements OnInit {
 
   deleteDrone(id) {
     this.db.delete('drones', id).then((data) => {
-      this.db.getList('drones').then((otherData) => {
-        console.log('drones.getlist : ', otherData);
-        this.dronesList = otherData;
-      });
+      return this.db.getList('drones');
+    }).then((otherData) => {
+      console.log('drones.getlist : ', otherData);
+      this.dronesList = otherData;
     }).catch((error) => {
       console.log('Error in delete Drone : ', error);
     });
   }
 
   openModalUpdate(drone) {
-    const modalRef = this.modalService.open(DroneUpdateComponent);
-    modalRef.componentInstance.drone = { ...drone };
+    const modalRef = this.modalService.open(DroneUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.drone = drone ? { ...drone } : this.newDrone;
     modalRef.result.then(() => {
-      this.db.getList('drones').then((data) => {
-        console.log('drones.getlist : ', data);
-        this.dronesList = data;
-      });
-    }).catch(() => { });
+      return this.db.getList('drones');
+    }).then((data) => {
+      console.log('drones.getlist : ', data);
+      this.dronesList = data;
+    }).catch((error) => {
+      console.log('openModalUpdate', error);
+    });
   }
 }

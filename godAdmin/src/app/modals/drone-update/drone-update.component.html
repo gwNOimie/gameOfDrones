@@ -2,15 +2,264 @@
   <h4 class="modal-title">Update drone {{drone._id}}</h4>
 </div>
 <div class="modal-body">
-  <input type="text" [(ngModel)]="drone.name">
-  <input type="text" [(ngModel)]="drone.description">
-  <input type="number" [(ngModel)]="drone.level">
-  <input type="number" [(ngModel)]="drone.life">
-  <input type="number" [(ngModel)]="drone.actionPoints">
-  <input [(ngModel)]="drone.source">
-  <input type="number" [(ngModel)]="drone.cost">
+
+
+  <ngb-accordion [closeOthers]="true" activeIds="static-1">
+    <ngb-panel id="droneInfo" title="Drone">
+      <ng-template ngbPanelContent>
+        <ul>
+          <li>
+            <input type="text" placeholder="Drone name" [(ngModel)]="drone.name">
+          </li>
+          <li>
+            <input type="text" placeholder="Drone description" [(ngModel)]="drone.description">
+          </li>
+          <li>
+            <input type="number" placeholder="Drone level" [(ngModel)]="drone.level">
+          </li>
+          <li>
+            <input type="number" placeholder="Drone cost" [(ngModel)]="drone.cost">
+          </li>
+          <li>
+            <input type="number" placeholder="Drone speed" [(ngModel)]="drone.speed">
+          </li>
+          <li>
+            <input type="number" placeholder="Drone health" [(ngModel)]="drone.health">
+          </li>
+          <li>
+            <input type="number" placeholder="Drone action points" [(ngModel)]="drone.actionPoints">
+          </li>
+        </ul>
+      </ng-template>
+    </ngb-panel>
+
+    <ngb-panel id="leftWeapon" title="Left Weapon">
+      <ng-template ngbPanelContent>
+        Left weapon:
+        <ul>
+          <li>
+            <input type="text" placeholder="Left weapon name" [(ngModel)]="drone.weaponLeft.name">
+          </li>
+          <li>
+            <input type="text" placeholder="Left weapon description" [(ngModel)]="drone.weaponLeft.description">
+          </li>
+          <li>
+            <input type="number" placeholder="Left weapon level" [(ngModel)]="drone.weaponLeft.level">
+          </li>
+          <li>Attacks:
+            <ul>
+              <li>
+                <ul>
+                  <li>
+                    <input type="text" placeholder="Left weapon first attack name" [(ngModel)]="drone.weaponLeft.attacks[0].name">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Left weapon first attack description" [(ngModel)]="drone.weaponLeft.attacks[0].description">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon first attack damages" [(ngModel)]="drone.weaponLeft.attacks[0].damages">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon first attack ammo" [(ngModel)]="drone.weaponLeft.attacks[0].ammo">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon first attack cooldown" [(ngModel)]="drone.weaponLeft.attacks[0].cooldown">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon first attack accuracy" [(ngModel)]="drone.weaponLeft.attacks[0].accuracy">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Left weapon first attack pictureId" [(ngModel)]="drone.weaponLeft.attacks[0].pictureId">
+                  </li>
+                  <li>Bonus:
+                    <ul>
+                      <li>
+                        <select [(ngModel)]="drone.weaponLeft.attacks[0].bonus.type">
+                          <option *ngFor="let bonusType of bonusTypes" value="bonusType.value">{{ bonusType.key }}</option>
+                        </select>
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[0].bonus.type === 'fire'">
+                        <input type="number" placeholder="Left weapon first attack damages bonus (fire)" [(ngModel)]="drone.weaponLeft.attacks[0].bonus.damages">
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[0].bonus.type === 'fire'">
+                        <input type="number" placeholder="Left weapon first attack turns number (fire)" [(ngModel)]="drone.weaponLeft.attacks[0].bonus.nbTurns">
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[0].bonus.type === 'elecricity'">
+                        <input type="number" placeholder="Left weapon first attack action points reduction (electricity)" [(ngModel)]="drone.weaponLeft.attacks[0].bonus.actionPointsReduction">
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[0].bonus.type === 'explosion'">
+                        <input type="number" placeholder="Left weapon first attack tiles number (explosion)" [(ngModel)]="drone.weaponLeft.attacks[0].bonus.nbTiles">
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <input type="text" placeholder="Left weapon second attack name" [(ngModel)]="drone.weaponLeft.attacks[1].name">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Left weapon second attack description" [(ngModel)]="drone.weaponLeft.attacks[1].description">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon second attack damages" [(ngModel)]="drone.weaponLeft.attacks[1].damages">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon second attack ammo" [(ngModel)]="drone.weaponLeft.attacks[1].ammo">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon second attack cooldown" [(ngModel)]="drone.weaponLeft.attacks[1].cooldown">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Left weapon second attack accuracy" [(ngModel)]="drone.weaponLeft.attacks[1].accuracy">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Left weapon second attack pictureId" [(ngModel)]="drone.weaponLeft.attacks[1].pictureId">
+                  </li>
+                  <li>Bonus:
+                    <ul>
+                      <li>
+                        <select [(ngModel)]="drone.weaponLeft.attacks[1].bonus.type">
+                          <option *ngFor="let bonusType of bonusTypes" value="bonusType.value">{{ bonusType.key }}</option>
+                        </select>
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[1].bonus.type === 'fire'">
+                        <input type="text" placeholder="Left weapon second attack bonus damages (fire)" [(ngModel)]="drone.weaponLeft.attacks[1].bonus.damages">
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[1].bonus.type === 'fire'">
+                        <input type="text" placeholder="Left weapon second attack turns number (fire)" [(ngModel)]="drone.weaponLeft.attacks[1].bonus.nbTurns">
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[1].bonus.type === 'elecricity'">
+                        <input type="text" placeholder="Left weapon second attack action points reduction (electricity)" [(ngModel)]="drone.weaponLeft.attacks[1].bonus.actionPointsReduction">
+                      </li>
+                      <li *ngIf="drone.weaponLeft.attacks[1].bonus.type === 'explosion'">
+                        <input type="text" placeholder="Left weapon second attack tiles number (explosion)" [(ngModel)]="drone.weaponLeft.attacks[1].bonus.nbTiles">
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel id="rightWeapon" title="Right Weapon">
+      <ng-template ngbPanelContent>
+        Right weapon:
+        <ul>
+          <li>
+            <input type="text" placeholder="Right weapon name" [(ngModel)]="drone.weaponRight.name">
+          </li>
+          <li>
+            <input type="text" placeholder="Right weapon description" [(ngModel)]="drone.weaponRight.description">
+          </li>
+          <li>
+            <input type="number" placeholder="Right weapon level" [(ngModel)]="drone.weaponRight.level">
+          </li>
+          <li>Attacks:
+            <ul>
+              <li>
+                <ul>
+                  <li>
+                    <input type="text" placeholder="Right weapon first attack name" [(ngModel)]="drone.weaponRight.attacks[0].name">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Right weapon first attack description" [(ngModel)]="drone.weaponRight.attacks[0].description">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon first attack damages" [(ngModel)]="drone.weaponRight.attacks[0].damages">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon first attack ammo" [(ngModel)]="drone.weaponRight.attacks[0].ammo">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon first attack cooldown" [(ngModel)]="drone.weaponRight.attacks[0].cooldown">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon first attack accuracy" [(ngModel)]="drone.weaponRight.attacks[0].accuracy">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Right weapon first attack pictureId" [(ngModel)]="drone.weaponRight.attacks[0].pictureId">
+                  </li>
+                  <li>Bonus:
+                    <ul>
+                      <li>
+                        <select [(ngModel)]="drone.weaponRight.attacks[0].bonus.type">
+                          <option *ngFor="let bonusType of bonusTypes" value="bonusType.value">{{ bonusType.key }}</option>
+                        </select>
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[0].bonus.type === 'fire'">
+                        <input type="number" placeholder="Right weapon first attack damages bonus (fire)" [(ngModel)]="drone.weaponRight.attacks[0].bonus.damages">
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[0].bonus.type === 'fire'">
+                        <input type="number" placeholder="Right weapon first attack turns number (fire)" [(ngModel)]="drone.weaponRight.attacks[0].bonus.nbTurns">
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[0].bonus.type === 'elecricity'">
+                        <input type="number" placeholder="Right weapon first attack action points reduction (electricity)" [(ngModel)]="drone.weaponRight.attacks[0].bonus.actionPointsReduction">
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[0].bonus.type === 'explosion'">
+                        <input type="number" placeholder="Right weapon first attack tiles number (explosion)" [(ngModel)]="drone.weaponRight.attacks[0].bonus.nbTiles">
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <ul>
+                  <li>
+                    <input type="text" placeholder="Right weapon second attack name" [(ngModel)]="drone.weaponRight.attacks[1].name">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Right weapon second attack description" [(ngModel)]="drone.weaponRight.attacks[1].description">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon second attack damages" [(ngModel)]="drone.weaponRight.attacks[1].damages">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon second attack ammo" [(ngModel)]="drone.weaponRight.attacks[1].ammo">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon second attack cooldown" [(ngModel)]="drone.weaponRight.attacks[1].cooldown">
+                  </li>
+                  <li>
+                    <input type="number" placeholder="Right weapon second attack accuracy" [(ngModel)]="drone.weaponRight.attacks[1].accuracy">
+                  </li>
+                  <li>
+                    <input type="text" placeholder="Right weapon second attack pictureId" [(ngModel)]="drone.weaponRight.attacks[1].pictureId">
+                  </li>
+                  <li>Bonus:
+                    <ul>
+                      <li>
+                        <select [(ngModel)]="drone.weaponRight.attacks[1].bonus.type">
+                          <option *ngFor="let bonusType of bonusTypes" value="bonusType.value">{{ bonusType.key }}</option>
+                        </select>
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[1].bonus.type === 'fire'">
+                        <input type="text" placeholder="Right weapon second attack bonus damages (fire)" [(ngModel)]="drone.weaponRight.attacks[1].bonus.damages">
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[1].bonus.type === 'fire'">
+                        <input type="text" placeholder="Right weapon second attack turns number (fire)" [(ngModel)]="drone.weaponRight.attacks[1].bonus.nbTurns">
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[1].bonus.type === 'elecricity'">
+                        <input type="text" placeholder="Right weapon second attack action points reduction (electricity)" [(ngModel)]="drone.weaponRight.attacks[1].bonus.actionPointsReduction">
+                      </li>
+                      <li *ngIf="drone.weaponRight.attacks[1].bonus.type === 'explosion'">
+                        <input type="text" placeholder="Right weapon second attack tiles number (explosion)" [(ngModel)]="drone.weaponRight.attacks[1].bonus.nbTiles">
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="update()">Update</button>
+  <button type="button" class="btn btn-outline-dark" (click)="update()">Save</button>
   <button type="button" class="btn btn-outline-dark" (click)="cancel()">Cancel</button>
 </div>

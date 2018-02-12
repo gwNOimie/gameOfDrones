@@ -1,66 +1,93 @@
-<table class="table w-100">
-  <thead class="thead-dark">
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Level</th>
-      <th>Cost</th>
-      <th>Speed</th>
-      <th>Health</th>
-      <th>Action points</th>
-      <th>Picture</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-      <td>
-        <input type="text" [(ngModel)]="newDrone.name">
-      </td>
-      <td>
-        <input type="text" [(ngModel)]="newDrone.description">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="newDrone.level">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="newDrone.cost">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="newDrone.speed">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="newDrone.health">
-      </td>
-      <td>
-        <input type="number" [(ngModel)]="newDrone.actionPoints">
-      </td>
-      <td>
-        <input [(ngModel)]="newDrone.pictureId">
-      </td>
-      <td>
-        <button (click)="addDrone()">Add</button>
-      </td>
-    </tr>
-    <tr *ngFor="let drone of dronesList">
-      <td>{{drone._id}}</td>
-      <td>{{drone.name}}</td>
-      <td>{{drone.description}}</td>
-      <td>{{drone.level}}</td>
-      <td>{{drone.cost}}</td>
-      <td>{{drone.speed}}</td>
-      <td>{{drone.health}}</td>
-      <td>{{drone.actionPoints}}</td>
-      <td>{{drone.pictureId}}</td>
-      <td>
-        <button (click)="openModalWeaponsDetail(drone._id)">+ Détail des armes</button>
-      </td>
-      <td>
-        <button (click)="openModalUpdate(drone)">Update</button>
-        <button (click)="deleteDrone(drone._id)">Delete</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="d-flex flex-row flex-wrap">
+  <div class="card" class="w-25 p-3">
+    <img class="card-img-top" src="" alt="+image">
+    <div class="card-body">
+      <h5 class="card-title">New drone</h5>
+      <p class="card-text">Click here to add a new drone to the list</p>
+      <button class="btn btn-primary" (click)="openModalUpdate()">New</button>
+    </div>
+  </div>
+  <div class="card" class="w-25 p-3" *ngFor="let drone of dronesList">
+    <img class="card-img-top" src="{{drone.pictureId}}" alt="drone picture">
+    <div class="card-body">
+      <h5 class="card-title">{{ drone.name }}</h5>
+      <ul>
+        <li>ID: {{drone._id}}</li>
+        <li>{{drone.description}}</li>
+        <li>Level: {{drone.level}}</li>
+        <li>Cost: {{drone.cost}}</li>
+        <li>Speed: {{drone.speed}}</li>
+        <li>Health: {{drone.health}}</li>
+        <li>PA: {{drone.actionPoints}}</li>
+        <li>Weapons:
+          <ul>
+            <li *ngIf="drone.weaponLeft">Left weapon:
+              <ul>
+                <li>Name: {{drone.weaponLeft.name}}</li>
+                <li>Description: {{drone.weaponLeft.description}}</li>
+                <li>Level: {{drone.weaponLeft.level}}</li>
+                <li>Attacks:
+                  <ul>
+                    <li *ngFor="let attack of drone.weaponLeft.attacks">
+                      <ul>
+                        <li>Name: {{attack.name }}</li>
+                        <li>Description: {{attack.description }}</li>
+                        <li>Damages: {{attack.damages }}</li>
+                        <li>Ammo: {{attack.ammo }}</li>
+                        <li>Cooldown: {{attack.cooldown }}</li>
+                        <li>Accuracy: {{attack.accuracy }}</li>
+                        <li>PictureId: {{attack.pictureId }}</li>
+                        <li *ngIf="attack.bonus">Bonus:
+                          <ul>
+                            <li *ngIf="attack.bonus.type">Type: {{ attack.bonus.type }}</li>
+                            <li *ngIf="attack.bonus.damages">Damages: {{ attack.bonus.damages }}</li>
+                            <li *ngIf="attack.bonus.nbTurns">Number of turns: {{ attack.bonus.nbTurns }}</li>
+                            <li *ngIf="attack.bonus.actionPointsReduction">PA Reduction: {{ attack.bonus.actionPointsReduction }}</li>
+                            <li *ngIf="attack.bonus.nbTiles">Number of tiles: {{ attack.bonus.nbTiles }}</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li *ngIf="drone.weaponRight">Right weapon:
+              <ul>
+                <li>Name: {{drone.weaponRight.name}}</li>
+                <li>Description: {{drone.weaponRight.description}}</li>
+                <li>Level: {{drone.weaponRight.level}}</li>
+                <li>Attacks:
+                  <ul>
+                    <li *ngFor="let attack of drone.weaponRight.attacks">
+                      <ul>
+                        <li>Name: {{attack.name }}</li>
+                        <li>Description: {{attack.description }}</li>
+                        <li>Damages: {{attack.damages }}</li>
+                        <li>Ammo: {{attack.ammo }}</li>
+                        <li>Cooldown: {{attack.cooldown }}</li>
+                        <li>Accuracy: {{attack.accuracy }}</li>
+                        <li>PictureId: {{attack.pictureId }}</li>
+                        <li *ngIf="attack.bonus">Bonus:
+                          <ul>
+                            <li *ngIf="attack.bonus.type">Type: {{ attack.bonus.type }}</li>
+                            <li *ngIf="attack.bonus.damages">Damages: {{ attack.bonus.damages }}</li>
+                            <li *ngIf="attack.bonus.nbTurns">Number of turns: {{ attack.bonus.nbTurns }}</li>
+                            <li *ngIf="attack.bonus.actionPointsReduction">PA Reduction: {{ attack.bonus.actionPointsReduction }}</li>
+                            <li *ngIf="attack.bonus.nbTiles">Number of tiles: {{ attack.bonus.nbTiles }}</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <button class="btn btn-primary" (click)="openModalUpdate(drone)">Update</button>
+      <button class="btn btn-primary" (click)="deleteDrone(drone._id)">Delete</button>
+    </div>
+  </div>
+</div>
