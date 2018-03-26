@@ -1,44 +1,49 @@
-const gearModel = require('../models/gear');
+const attackModel = require('../models/attack');
 
 module.exports = {
+    attackSchema: () => AttackSchema,
     getList: (req, res, next) => {
-        gearModel.getList().then((result) => {
+        attackModel.getList().then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    getGear: (req, res, next) => {
-        gearModel.getGear(req.params.id).then((result) => {
+
+    getAttack: (req, res, next) => {
+        attackModel.getAttack(req.params.id).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    addGear: (req, res, next) => {
-        gearModel.addGear(req.body).then((result) => {
+
+    addAttack: (req, res, next) => {
+        attackModel.addAttack(req.body).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    updateGear: (req, res, next) => {
-        gearModel.updateGear(req.params.id, req.body).then((result) => {
+
+    updateAttack: (req, res, next) => {
+        attackModel.updateAttack(req.params.id, req.body).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    deleteGear: (req, res, next) => {
-        gearModel.deleteGear(req.params.id).then((result) => {
+
+    deleteAttack: (req, res, next) => {
+        attackModel.deleteAttack(req.params.id).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     }
-};
+}

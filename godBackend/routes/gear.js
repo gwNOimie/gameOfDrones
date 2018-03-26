@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var gearController = require('../controllers/gear')
+const express = require('express');
+const router = express.Router();
+const gearController = require('../controllers/gear');
 
 router.get('/', gearController.getList);
-router.get('/:id', gearController.getItem);
-router.post('/', gearController.addItem);
-router.post('/:id', gearController.updateItem);
-router.delete('/:id', gearController.deleteItem);
+router.get('/:id', gearController.getGear);
+router.post('/', gearController.addGear);
+router.post('/:id', gearController.updateGear);
+router.delete('/:id', gearController.deleteGear);
+
 module.exports = router;
