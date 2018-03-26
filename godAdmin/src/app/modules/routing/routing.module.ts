@@ -7,15 +7,15 @@ import { HomeComponent } from '../../pages/home/home.component';
 import { LoginComponent } from '../../pages/login/login.component';
 import { PageNotFoundComponent } from '../../pages/page-not-found/page-not-found.component';
 import { DronesListComponent } from '../../pages/drones-list/drones-list.component';
-import { GearListComponent } from '../../pages/gear-list/gear-list.component';
-import { PlayerListComponent } from '../../pages/player-list/player-list.component';
+import { GearsListComponent } from '../../pages/gears-list/gears-list.component';
+import { UsersListComponent } from '../../pages/users-list/users-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'drones', component: DronesListComponent, canActivate: [AuthGuard] },
-  { path: 'players', component: PlayerListComponent, canActivate: [AuthGuard] },
-  { path: 'gears', component: GearListComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersListComponent, canActivate: [AuthGuard] },
+  { path: 'gears', component: GearsListComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 

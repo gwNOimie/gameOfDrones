@@ -1,8 +1,11 @@
-import { DroneModel } from './../../models/drone.model';
-import { DroneUpdateComponent } from './../../modals/drone-update/drone-update.component';
-import { DatabaseService } from './../../services/database/database.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { DroneUpdateComponent } from './../../modals/drone-update/drone-update.component';
+
+import { DroneModel } from './../../models/drone.model';
+
+import { DatabaseService } from './../../services/database/database.service';
 
 @Component({
   selector: 'app-drones-list',
@@ -13,7 +16,10 @@ export class DronesListComponent implements OnInit {
   dronesList: any;
   newDrone = new DroneModel();
 
-  constructor(private db: DatabaseService, private modalService: NgbModal) { }
+  constructor(
+    private db: DatabaseService,
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit() {
     this.dronesList = [];
