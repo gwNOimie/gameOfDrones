@@ -18,7 +18,7 @@ const AttackSchema = new mongoose.Schema({
 const Attack = mongoose.model('attack', AttackSchema);
 
 module.exports = {
-    gearSchema: () => GearSchema,
+    attackSchema: () => AttackSchema,
     getList: () => {
         return new Promise((resolve, reject) => {
             console.log('getList');
