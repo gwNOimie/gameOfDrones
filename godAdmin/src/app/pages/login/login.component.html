@@ -1,3 +1,10 @@
-<p>
-  login works!
-</p>
+<p>You must connect with an admin user account in order to edit Games of Drones data.</p>
+<label>
+  Login
+  <input type="text" placeholder="Login" [(ngModel)]="login">
+</label>
+<label>
+  Password
+  <input type="password" placeholder="Password" [(ngModel)]="password">
+</label>
+<button class="btn btn-primary" [disabled]="!isValid()" (click)="logIn()">Connect</button>

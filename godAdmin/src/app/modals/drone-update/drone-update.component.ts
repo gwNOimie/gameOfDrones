@@ -11,6 +11,12 @@ export class DroneUpdateComponent implements OnInit {
   @Input()
   drone;
 
+  bonusTypes = [
+    { value: 'electricity', key: 'Electricity' },
+    { value: 'fire', key: 'Fire' },
+    { value: 'explosion', key: 'Explosion' }
+  ];
+
   constructor(private db: DatabaseService, public activeModal: NgbActiveModal) { }
 
   ngOnInit() {

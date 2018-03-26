@@ -1,20 +1,22 @@
-var express = require('express');
-var cors = require('cors');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var users = require('./routes/user');
-var drones = require('./routes/drone');
-var attack = require('./routes/attack');
-var game = require('./routes/game');
-var gear = require('./routes/gear');
-var tile = require('./routes/tile');
 
-var app = express();
+const login = require('./routes/login');
+const users = require('./routes/user');
+const drones = require('./routes/drone');
+const attack = require('./routes/attack');
+const game = require('./routes/game');
+const gear = require('./routes/gear');
+const tile = require('./routes/tile');
 
-var db = require('./db');
+const app = express();
+
+const db = require('./db');
 
 app.use(cors());
 app.use(logger('dev'));
@@ -23,12 +25,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/attack', attack);
-app.use('/drones', drones);
-app.use('/game', game);
-app.use('/gear', gear);
-app.use('/tile', tile);
+app.use('/', login);
 app.use('/users', users);
+app.use('/drones', drones);
+app.use('/gears', gear);
+app.use('/attack', attack);
+app.use('/game', game);
+app.use('/tile', tile);
+
 
 
 // catch 404 and forward to error handler

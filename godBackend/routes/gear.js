@@ -1,13 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var gearModel = require('../models/gear')
+const express = require('express');
+const router = express.Router();
+const gearController = require('../controllers/gear');
 
-router.get('/', gearModel.getList);
-//router.get('/sortByGold', gearModel.getFilteredList)
-router.get('/id/:id', gearModel.getItemById);
-router.get('/pseudo/:pseudo', gearModel.getItemByName);
-router.post('/', gearModel.addItem);
-router.post('/update/:id', gearModel.updateItem);
-router.delete('/:id', gearModel.deleteItem);
+router.get('/', gearController.getList);
+router.get('/:id', gearController.getGear);
+router.post('/', gearController.addGear);
+router.post('/:id', gearController.updateGear);
+router.delete('/:id', gearController.deleteGear);
 
 module.exports = router;

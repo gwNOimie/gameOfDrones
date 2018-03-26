@@ -1,73 +1,67 @@
-var crypto = require('crypto');
+var bcrypt = require('bcrypt');
 
 const userModel = require('../models/user');
 
 module.exports = {
-  getList: (req, res, next) => {
-    userModel.getList().then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  getItemById: (req, res, next) => {
-    userModel.getItemById(req.params.id).then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  search: (req, res, next) => {
-      //todo last
-  },
-  addItem: (req, res, next) => {
-    var item = req.body;
-    console.log(item.password)
-    var cipher = crypto.createCipher('sha256', 'l5JmP+G0/1zB%;r8B8?2?2pcqGcL^3');
-    var crypted = cipher.update(item.password, 'utf8', 'hex');
-    crypted += cipher.final('hex');
-    item.password = crypted;
-    console.log(item.password);
+    getList: (req, res, next) => {
+        userModel.getList().then((result) => {
+            res.send(result)
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
+        })
+    },
 
-    userModel.addItem(item).then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  changeGear: (req, res, next) => {
-    userModel.changeGear(req.params.id, req.body).then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  updateItem: (req, res, next) => {
-    userModel.updateItem(req.params.id, req.body).then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
-  deleteItem: (req, res, next) => {
-    userModel.deleteItem(req.params.id).then((result) => {
-      res.send(result)
-    }).catch((error) => {
-      console.log(error);
-      res.status(500).send(error);
-    })
-  },
+    getUser: (req, res, next) => {
+        userModel.getUser(req.params.id).then((result) => {
+            res.send(result)
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
+        })
+    },
 
-  getSong: (req, res, next) => {
-    userModel.getSong().then((result) => {
-      res.send(result)
-    }).catch((err) =>{
-      res.status(500).send(err)
-    })
-  }
-}
+    search: (req, res, next) => {
+        //todo last
+    },
+
+    addUser: (req, res, next) => {
+        let item = req.body;
+        let salt = bcrypt.genSaltSync(10);
+        item.password = bcrypt.hashSync(item.password, salt);
+
+        userModel.addUser(item).then((result) => {
+            res.send(result)
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
+        })
+    },
+
+    updateUser: (req, res, next) => {
+        userModel.updateUser(req.params.id, req.body).then((result) => {
+            res.send(result)
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
+        })
+    },
+
+    deleteUser: (req, res, next) => {
+        userModel.deleteUser(req.params.id).then((result) => {
+            res.send(result)
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
+        })
+    },
+
+    changeGear: (req, res, next) => {
+        userModel.changeGear(req.params.id, req.body).then((result) => {
+            res.send(result)
+        }).catch((error) => {
+            console.log(error);
+            res.status(500).send(error);
+        })
+    }
+};

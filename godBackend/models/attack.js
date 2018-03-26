@@ -15,48 +15,66 @@ const AttackSchema = new mongoose.Schema({
     bonus : BonusModel.bonusSchema()
 });
 
-const AttackModel = mongoose.model('attack', AttackSchema);
+const Attack = mongoose.model('attack', AttackSchema);
 
 module.exports = {
-	attackSchema: () => AttackSchema,
-    getList: (req, res, next) => {
-        AttackModel.getList().then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
+    gearSchema: () => AttackSchema,
+    getList: () => {
+        return new Promise((resolve, reject) => {
+            console.log('getList');
+            Attack.find({}, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            })
         })
     },
-    getItem: (req, res, next) => {
-        AttackModel.getItem(req.params.id).then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
+
+    getAttack: (id) => {
+        return new Promise((resolve, reject) => {
+            Attack.find({"_id": id}, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            });
         })
     },
-    addItem: (req, res, next) => {
-        AttackModel.addItem(req.body).then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
+
+    addAttack: (item) => {
+        return new Promise((resolve, reject) => {
+            console.log('addItem');
+            const attack = new Attack(item);
+            attack.save(item, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result)
+            })
         })
     },
-    updateItem: (req, res, next) => {
-        AttackModel.updateItem(req.params.id, req.body).then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
+
+    updateAttack: (id, item) => {
+        return new Promise((resolve, reject) => {
+            Attack.findByIdAndUpdate(id, item, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result)
+            })
         })
     },
-    deleteItem: (req, res, next) => {
-        AttackModel.deleteItem(req.params.id).then((result) => {
-            res.send(result)
-        }).catch((error) => {
-            console.log(error);
-            res.status(500).send(error);
+
+    deleteAttack: (id) => {
+        return new Promise((resolve, reject) => {
+            Attack.findByIdAndRemove(id, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result)
+            })
         })
     }
-}
+
+};

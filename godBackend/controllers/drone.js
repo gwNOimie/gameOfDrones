@@ -9,32 +9,32 @@ module.exports = {
             res.status(500).send(error);
         })
     },
-    getItem: (req, res, next) => {
-        droneModel.getItem(req.params.id).then((result) => {
+    getDrone: (req, res, next) => {
+        droneModel.getDrone(req.params.id).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    addItem: (req, res, next) => {
-        droneModel.addItem(req.body).then((result) => {
+    addDrone: (req, res, next) => {
+        droneModel.addDrone(req.body).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    updateItem: (req, res, next) => {
-        droneModel.updateItem(req.params.id, req.body).then((result) => {
+    updateDrone: (req, res, next) => {
+        droneModel.updateDrone(req.params.id, req.body).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
             res.status(500).send(error);
         })
     },
-    deleteItem: (req, res, next) => {
-        droneModel.deleteItem(req.params.id).then((result) => {
+    deleteDrone: (req, res, next) => {
+        droneModel.deleteDrone(req.params.id).then((result) => {
             res.send(result)
         }).catch((error) => {
             console.log(error);
