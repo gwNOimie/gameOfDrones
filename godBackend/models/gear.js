@@ -1,9 +1,5 @@
-
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/godDatabase', { useMongoClient: true });
-mongoose.Promise = global.Promise;
-
 const AttackModel = require('./attack');
+const mongoose = require('mongoose');
 
 const GearSchema = new mongoose.Schema({
 	name : { type: String },
@@ -22,57 +18,66 @@ function arrayLimit(val) {
 	return val.length <= 2;
 }
 
-const GearModel = mongoose.model('gear', GearSchema);
+const Gear = mongoose.model('gear', GearSchema);
 
 module.exports = {
-	gearSchema: () => GearSchema,
-	getList: () => {
-		return new Promise((resolve, reject) => {
-			console.log('getList');
-			resolve(Gear.find({}))
-		})
-	},
-	getItemById: (id) => {
-		console.log('getItemById : ' + id);
-		return new Promise((resolve, reject) => {
-			resolve(GearModel.find({ "_id": id }))
-		})
-	},
-	getItemByName: (name) => {
-		console.log('getItemByName : ' + name);
-		return new Promise((resolve, reject) => {
-			resolve(GearModel.find({ "name": name }))
-		})
-	},
-	addItem: (item) => {
-		return new Promise((resolve, reject) => {
-			console.log('addItem');
-			item.signUpDate = new Date();
-			item.gold = 0;
-			var gear = new GearModel(item);
+    gearSchema: () => GearSchema,
+    getList: () => {
+        return new Promise((resolve, reject) => {
+            console.log('getList');
+            Gear.find({}, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            })
+        })
+    },
 
-			gear.save(item, function (err, result) {
-				if (err) {
-					reject(err)
-				};
-				resolve(result)
-			})
+    getGear: (id) => {
+        return new Promise((resolve, reject) => {
+            Gear.find({"_id": id}, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            });
+        })
+    },
 
-		})
-	},
-	updateItem: (id, item) => {
-		return new Promise((resolve, reject) => {
-			GearModel.findByIdAndUpdate(id, item, function (err, result) {
-				if (err) {
-					reject(err)
-				};
-				resolve(result)
-			})
-		})
-	},
-	deleteItem: (id) => {
-		return new Promise((resolve, reject) => {
-			resolve(GearModel.find({ "_id": id }).remove().exec())
-		})
-	}
-}
+    addGear: (item) => {
+        return new Promise((resolve, reject) => {
+            console.log('addItem');
+            const gear = new Gear(item);
+            gear.save(item, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result)
+            })
+        })
+    },
+
+    updateGear: (id, item) => {
+        return new Promise((resolve, reject) => {
+            Gear.findByIdAndUpdate(id, item, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result)
+            })
+        })
+    },
+
+    deleteGear: (id) => {
+        return new Promise((resolve, reject) => {
+            Gear.findByIdAndRemove(id, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result)
+            })
+        })
+    }
+
+};

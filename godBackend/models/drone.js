@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const GearModel = require('./gear')
+const GearModel = require('./gear');
 
 const DroneSchema = new mongoose.Schema({
-	name: { type: String },
+	name: { type: String, required : true},
 	description: { type: String },
 	level: { type: Number },
 	cost: { type: Number },
@@ -14,7 +14,7 @@ const DroneSchema = new mongoose.Schema({
 	weaponRight: { type: GearModel.gearSchema() }
 });
 
-const DroneModel = mongoose.model('drone', DroneSchema);
+const Drone = mongoose.model('drone', DroneSchema);
 
 function arrayLimit(val) {
 	return val.length <= 2;
@@ -22,44 +22,60 @@ function arrayLimit(val) {
 
 module.exports = {
 	droneSchema: () => DroneSchema,
-	getList: () => {
-		return new Promise((resolve, reject) => {
-			console.log('getList');
-			resolve(DroneModel.find({}))
-		})
-	},
-	getItem: (id) => {
-		console.log('getItemById : ' + id);
-		return new Promise((resolve, reject) => {
-			resolve(DroneModel.find({ "_id": id }))
-		})
-	},
-	addItem: (item) => {
-		return new Promise((resolve, reject) => {
-			console.log('addItem');
-			const drone = new DroneModel(item);
-			drone.save((err, result) => {
-				if (err) {
-					reject(err)
-				};
+    getList: () => {
+        return new Promise((resolve, reject) => {
+            console.log('getList');
+            Drone.find({}, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            })
+        })
+    },
+    getDrone: (id) => {
+        return new Promise((resolve, reject) => {
+            Drone.find({ "_id": id }, (err, result) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(result);
+            })
+
+        })
+    },
+    addDrone: (item) => {
+        return new Promise((resolve, reject) => {
+        	const drone = new Drone(item);
+            drone.save((err, result)=> {
+            	if (err) {
+            		reject(err)
+				}
 				resolve(result)
 			})
 
-		})
-	},
-	updateItem: (id, item) => {
-		return new Promise((resolve, reject) => {
-			DroneModel.findByIdAndUpdate(id, item, (err, result) => {
-				if (err) {
-					reject(err)
-				};
-				resolve(result)
-			})
-		})
-	},
-	deleteItem: (id) => {
-		return new Promise((resolve, reject) => {
-			resolve(DroneModel.find({ "_id": id }).remove().exec())
-		})
-	}
-}
+        })
+    },
+
+    updateDrone: (id, item) => {
+        return new Promise((resolve, reject) => {
+            Drone.findByIdAndUpdate(id, item, (err, result) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve("modified");
+            })
+        })
+    },
+
+    deleteDrone: (id) => {
+        return new Promise((resolve, reject) => {
+            Drone.findByIdAndRemove(id, (err, result) => {
+                if (err){
+                    reject(err)
+                }
+                resolve(result)
+            })
+        })
+    }
+};
