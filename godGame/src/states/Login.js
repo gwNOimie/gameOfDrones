@@ -1,6 +1,8 @@
 /* globals __DEV__ */
 import Phaser from 'phaser'
 import _PhaserInput from '@orange-games/phaser-input/build/phaser-input'
+import UserService from './../services/userService'
+
 const PhaserInput = _PhaserInput.PhaserInput
 export default class extends Phaser.State {
   init () {
@@ -63,13 +65,15 @@ export default class extends Phaser.State {
       borderWidth: 1,
       borderColor: '#000',
       borderRadius: 6,
-      placeHolder: 'Password'
+      placeHolder: 'Password',
+      type: 'password'
     })
 
     const submitBtn = this.game.add.button(this.world.width / 2, (this.world.height / 3) + 100, 'drone', submit, this, 2, 1, 0)
 
     function submit () {
-      console.log('submit')
+      console.log('submit', loginInput.value, passwordInput.value)
+      UserService.login(loginInput.value, passwordInput.value)
     }
   }
 
