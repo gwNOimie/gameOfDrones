@@ -32,7 +32,10 @@ module.exports = {
   watch: true,
   plugins: [
     definePlugin,
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */}),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'/* chunkName= */,
+      filename: 'vendor.bundle.js'/* filename= */
+    }),
     new HtmlWebpackPlugin({
       filename: '../index.html',
       template: './src/index.html',
@@ -64,7 +67,7 @@ module.exports = {
       { test: /pixi\.js/, use: ['expose-loader?PIXI'] },
       { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
       { test: /p2\.js/, use: ['expose-loader?p2'] },
-      { test: /phaser\-input\.js$/, use: 'exports-loader?PhaserInput=PhaserInput' }
+      { test: /phaser-input\.js$/, use: 'exports-loader?PhaserInput=PhaserInput' }
     ]
   },
   node: {

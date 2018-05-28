@@ -1,6 +1,6 @@
 import request from 'request-promise-native'
 
-export class UserService {
+class UserService {
   login (user, password) {
     const options = {
       method: 'POST',
@@ -14,3 +14,5 @@ export class UserService {
     return request(options)
   }
 }
+
+export default new UserService()
