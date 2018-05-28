@@ -1,7 +1,11 @@
-import { DroneUpdateComponent } from './../../modals/drone-update/drone-update.component';
-import { DatabaseService } from './../../services/database/database.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { DroneUpdateComponent } from './../../modals/drone-update/drone-update.component';
+
+import { DroneModel } from './../../models/drone.model';
+
+import { DatabaseService } from './../../services/database/database.service';
 
 @Component({
   selector: 'app-drones-list',
@@ -10,9 +14,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DronesListComponent implements OnInit {
   dronesList: any;
-  newDrone = {};
+  newDrone = new DroneModel();
 
-  constructor(private db: DatabaseService, private modalService: NgbModal) { }
+  constructor(
+    private db: DatabaseService,
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit() {
     this.dronesList = [];
@@ -26,11 +33,10 @@ export class DronesListComponent implements OnInit {
   addDrone() {
     this.db.add('drones', this.newDrone).then((data) => {
       console.log('Drone : ', data);
-      this.db.getList('drones').then((otherData) => {
-        console.log('drones.getlist : ', otherData);
-        this.dronesList = otherData;
-      });
-      this.newDrone = {};
+      return this.db.getList('drones');
+    }).then((otherData) => {
+      console.log('drones.getlist : ', otherData);
+      this.dronesList = otherData;
     }).catch((error) => {
       console.log('Error in add Drone : ', error);
     });
@@ -38,23 +44,25 @@ export class DronesListComponent implements OnInit {
 
   deleteDrone(id) {
     this.db.delete('drones', id).then((data) => {
-      this.db.getList('drones').then((otherData) => {
-        console.log('drones.getlist : ', otherData);
-        this.dronesList = otherData;
-      });
+      return this.db.getList('drones');
+    }).then((otherData) => {
+      console.log('drones.getlist : ', otherData);
+      this.dronesList = otherData;
     }).catch((error) => {
       console.log('Error in delete Drone : ', error);
     });
   }
 
   openModalUpdate(drone) {
-    const modalRef = this.modalService.open(DroneUpdateComponent);
-    modalRef.componentInstance.drone = { ...drone };
+    const modalRef = this.modalService.open(DroneUpdateComponent, { size: 'lg' });
+    modalRef.componentInstance.drone = drone ? { ...drone } : this.newDrone;
     modalRef.result.then(() => {
-      this.db.getList('drones').then((data) => {
-        console.log('drones.getlist : ', data);
-        this.dronesList = data;
-      });
-    }).catch(() => { });
+      return this.db.getList('drones');
+    }).then((data) => {
+      console.log('drones.getlist : ', data);
+      this.dronesList = data;
+    }).catch((error) => {
+      console.log('openModalUpdate', error);
+    });
   }
 }

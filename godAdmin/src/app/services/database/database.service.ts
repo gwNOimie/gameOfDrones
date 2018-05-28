@@ -7,6 +7,10 @@ export class DatabaseService {
 
   constructor(private http: HttpClient) { }
 
+  login(user, password) {
+    return this.http.get(`${DbConfig.baseUrl}/users/login`).toPromise();
+  }
+
   getList(entity: string) {
     return new Promise((resolve, reject) => {
       this.http.get(`${DbConfig.baseUrl}/${entity}`).toPromise().then((data) => {
@@ -35,6 +39,10 @@ export class DatabaseService {
   }
 
   update(entity: string, object) {
-    return this.http.post(`${DbConfig.baseUrl}/${entity}/${object._id}`, object).toPromise();
+    let url = `${DbConfig.baseUrl}/${entity}`;
+    if (object._id) {
+      url += `/${object._id}`;
+    }
+    return this.http.post(url, object).toPromise();
   }
 }
