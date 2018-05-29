@@ -16,7 +16,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     const subscription = this.phaser.fullyLoaded.subscribe((value) => {
       if (value) {
-        this.phaser.game.add.sprite(0, 0, 'cat');
+        //this.phaser.game.add.sprite(0, 0, 'cat');
+
+
+        
         subscription.unsubscribe();
       }
     });
