@@ -72,9 +72,12 @@ export default class extends Phaser.State {
     const submitBtn = this.game.add.button(this.world.width / 2, (this.world.height / 3) + 100, 'drone', submit, this, 2, 1, 0)
 
     function submit () {
-      console.log(userService)
+      console.log(loginInput.value, passwordInput.value)
       userService.login(loginInput.value, passwordInput.value)
-        .then(result => console.log)
+        .then(result => {
+          console.log(result)
+          this.game.state.start('Warehouse')
+        })
         .catch(err => {
           console.log(err)
           console.log('fail')
